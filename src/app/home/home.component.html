@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="col-md-8 offset-md-2" style="height:90vh;border:1px solid black;">
+    <br>
+    <div class="row">
+      <div class="col-md-12">     
+        
+        <div class="input-group mb-3">
+          <input  type="text" class="form-control" placeholder="movie name" aria-label="movie name" aria-describedby="basic-addon2" name="search_movie" [(ngModel)]="search_movie" (keydown)="keyDownFunction($event)">
+          <div class="input-group-append">
+            <span class="btn btn-primary" id="basic-addon2" (click)="getMovie()">search</span>
+          </div>
+        </div>   
+     
+        <hr>
+      </div>
+    </div>
+    <div *ngIf="results" class="row">
+      <div class="col-md-4">
+        <h6>Search Results</h6>
+       <div style="height: 470px;overflow: auto">
+        <ul class="list-group" *ngFor="let result of results" >
+          <li class="list-group-item" (click)="showDetails(result)">{{result.Title}}</li>
+        </ul>
+       </div>
+      
+       
+      </div>
+      <div *ngIf="selectedMovie" class="col-md-8">
+            <img class="rounded mx-auto d-block" *ngIf="selectedMovie.Poster == 'N/A'" src="../../assets/no.png" alt="No Image" srcset="" height="200px" width="200px">
+            <img class="rounded mx-auto d-block" *ngIf="selectedMovie.Poster != 'N/A'" [src]="selectedMovie.Poster" alt="" srcset="" height="200px" width="200px">
+            <br>
+            <p class="text-center"><b>imdbID: </b>{{selectedMovie.imdbID}}</p>
+            <p class="text-center"><b>Title: </b>{{selectedMovie.Title}}</p>
+            <p class="text-center"><b>Type: </b>{{selectedMovie.Type}}</p>
+            <p class="text-center"><b>Year: </b>{{selectedMovie.Year}}</p>
+      </div>
+    </div>
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+  </div>
+</div>
